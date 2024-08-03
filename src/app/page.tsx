@@ -29,7 +29,7 @@ export default function Home() {
       });
     }, 50);
     return () => clearInterval(interval);
-  });
+  }, [ext]);
 
   return (
     <main className="flex min-h-screen w-full">
@@ -48,7 +48,6 @@ export default function Home() {
           step={0.01}
           value={ext}
           onChange={(e) => {
-            console.log(e.target.valueAsNumber);
             setExt(e.target.valueAsNumber);
           }}
         />
