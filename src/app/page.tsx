@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import bannerLogo from "@/images/colour_horizontal_standard.png";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import {
   defaultRocketState,
   RocketState,
@@ -11,6 +11,7 @@ import {
 
 export default function Home() {
   const [ext, setExt] = useState(0.58);
+  const extRef = useRef(0.58);
   const [gameState, setGameState] = useState<[number | null, RocketState]>([
     null,
     defaultRocketState,
@@ -24,12 +25,16 @@ export default function Home() {
         const now = performance.now();
         return [
           now,
-          step(lastState, (performance.now() - lastTime) / 1000, ext),
+          step(
+            lastState,
+            (performance.now() - lastTime) / 1000,
+            extRef.current
+          ),
         ];
       });
     }, 50);
     return () => clearInterval(interval);
-  }, [ext]);
+  }, []);
 
   return (
     <main className="flex min-h-screen w-full">
@@ -49,6 +54,7 @@ export default function Home() {
           value={ext}
           onChange={(e) => {
             setExt(e.target.valueAsNumber);
+            extRef.current = e.target.valueAsNumber;
           }}
         />
         <button
