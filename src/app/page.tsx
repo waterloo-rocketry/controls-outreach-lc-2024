@@ -314,7 +314,7 @@ export default function Home() {
               className="w-6 -translate-x-[50%] -translate-y-[50%]"
             >
               <path
-                d={`M 3 0 C 2 1 1 2 1 4 L 1 5 l -${currentState.t_s <= 9 ? 0 : ext / 100} 0 l 0 ${currentState.t_s <= 9 ? 0 : ext / 100} L 1 6 L 1 11 L 0 13 L 0 14 L 2 12 L 2 13 L 4 13 L 4 12 L 6 14 L 6 13 L 5 11 L 5 6 l ${currentState.t_s <= 9 ? 0 : ext / 100} 0 l 0 -${currentState.t_s <= 9 ? 0 : ext / 100} L 5 5 L 5 4 C 5 2 4 1 3 0`}
+                d={`M 3 0 C 2 1 1 2 1 4 L 1 5 l -${currentState.t_s <= 9 ? 0 : ext / 100} 0 l 0 1 l ${currentState.t_s <= 9 ? 0 : ext / 100} 0 L 1 11 L 0 13 L 0 14 L 2 12 L 2 13 L 4 13 L 4 12 L 6 14 L 6 13 L 5 11 L 5 6 l ${currentState.t_s <= 9 ? 0 : ext / 100} 0 l 0 -1 l -${currentState.t_s <= 9 ? 0 : ext / 100} 0 L 5 4 C 5 2 4 1 3 0`}
                 fill={currentState.t_s < 7.69 ? "#f97316" : "#000"}
                 className="transition"
               />
