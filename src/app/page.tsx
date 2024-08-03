@@ -279,13 +279,27 @@ export default function Home() {
             />
           </svg>
           <div
-            className="absolute bg-teal-300 rounded-full translate-y-[50%] w-4 h-4 -translate-x-[50%]"
+            className="absolute w-0 h-0"
             style={{
               // Technically you could use the velocity to interpolate each frame
               bottom: `${(currentState.y_m / 8000) * 100}%`,
               left: `calc(6rem + ${(currentState.x_m / 8000) * 100}cqh)`,
+              transform: `rotate(${Math.atan2(currentState.vx_m_s, currentState.vy_m_s)}rad)`,
+              //   transformOrigin: "center",
             }}
-          ></div>
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 6 14"
+              className="w-4 -translate-x-[50%] -translate-y-[50%]"
+            >
+              <path
+                d="M 3 0 C 2 1 1 2 1 4 L 1 11 L 0 13 L 0 14 L 2 12 L 2 13 L 4 13 L 4 12 L 6 14 L 6 13 L 5 11 L 5 4 C 5 2 4 1 3 0"
+                fill={currentState.t_s < 7.69 ? "#f97316" : "#000"}
+                className="transition"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </main>

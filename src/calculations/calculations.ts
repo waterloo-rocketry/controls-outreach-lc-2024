@@ -237,8 +237,9 @@ export type RocketState = {
 
 export const defaultRocketState: RocketState = {
   t_s: 0,
-  vy_m_s: 0,
-  vx_m_s: 0,
+  // not actual, just here for angle
+  vy_m_s: Math.cos((5 * Math.PI) / 180),
+  vx_m_s: Math.sin((5 * Math.PI) / 180),
   y_m: 0,
   x_m: 0,
 };
