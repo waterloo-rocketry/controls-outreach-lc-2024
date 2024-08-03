@@ -284,7 +284,7 @@ export default function Home() {
               // Technically you could use the velocity to interpolate each frame
               bottom: `${(currentState.y_m / 8000) * 100}%`,
               left: `calc(6rem + ${(currentState.x_m / 8000) * 100}cqh)`,
-              transform: `rotate(${Math.atan2(currentState.vx_m_s, currentState.vy_m_s)}rad)`,
+              transform: `rotate(${currentState.vx_m_s === 0 && currentState.vy_m_s === 0 ? (5 / 180) * Math.PI : Math.atan2(currentState.vx_m_s, currentState.vy_m_s)}rad)`,
               //   transformOrigin: "center",
             }}
           >
