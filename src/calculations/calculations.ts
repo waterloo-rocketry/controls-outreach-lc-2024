@@ -188,7 +188,7 @@ function dragAccel_m_s2(ext: number, vel_m_s: number, alt_m: number): number {
   const idx = Math.floor(ext * 10);
   const x = (vel_m_s - 273.9) / 148.7;
   const y = (alt_m - 5000) / 3172;
-  if (idx === 10) return polys[10].compute(x, y);
+  if (idx === 10) return polys[10].compute(x, y) / ROCKET_BURNOUT_MASS_KG;
   const a = polys[idx].compute(x, y);
   const b = polys[idx + 1].compute(x, y);
   const shift = ext * 10 - idx;
