@@ -187,7 +187,7 @@ function dragAccel_m_s2(ext: number, vel_m_s: number, alt_m: number): number {
   ];
   const idx = Math.floor(ext * 10);
   const x = (vel_m_s - 273.9) / 148.7;
-  const y = (alt_m - 5000) / 3172;
+  const y = (alt_m + 295 - 5000) / 3172;
   if (idx === 10) return polys[10].compute(x, y) / ROCKET_BURNOUT_MASS_KG;
   const a = polys[idx].compute(x, y);
   const b = polys[idx + 1].compute(x, y);
@@ -289,7 +289,7 @@ export function step(
   state: RocketState,
   h_s: number,
   extension: number
-): RocketState {
+): RocketState | null {
   if (state.t_s + h_s <= 9) {
     for (let i = 0; i < openrocketData.length - 1; i++) {
       if (openrocketData[i + 1][0] > state.t_s + h_s) {
@@ -309,7 +309,7 @@ export function step(
   }
   const s = rk4(state, h_s, extension);
   if (s.y_m < state.y_m) {
-    return state;
+    return null;
   }
   return s;
 }
