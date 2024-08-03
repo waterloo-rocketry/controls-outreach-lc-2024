@@ -67,7 +67,9 @@ export default function Home() {
         <div className="flex flex-col gap-4 p-4 w-96 min-h-screen">
           <div className="flex justify-center">
             <div className="w-64 h-16 relative">
-              <Image src={bannerLogo} alt="Waterloo Rocketry Logo" fill />
+              <a href="https://www.waterloorocketry.com/" target="_blank">
+                <Image src={bannerLogo} alt="Waterloo Rocketry Logo" fill />
+              </a>
             </div>
           </div>
           <h1 className="text-3xl text-center font-bold">Controls Game</h1>
@@ -192,8 +194,27 @@ export default function Home() {
           <p>A video game to see what it&apos;s like to control a rocket!</p>
           <p>
             Based off real aerodynamic data from Cycle 4 of our Borealis rocket.
+            To be launched at{" "}
+            <a
+              href="https://www.launchcanada.org/"
+              target="_blank"
+              className="text-blue-500"
+            >
+              Launch Canada
+            </a>
+            , Timmins ON, August 17&ndash;23, 2024.
           </p>
-          <p>Controls Outreach Game. Made with ❤️ by Waterloo Rocketry.</p>
+          <p>
+            Controls Outreach Game.{" "}
+            <a
+              href="https://github.com/waterloo-rocketry/controls-outreach-lc-2024"
+              className="text-blue-500"
+              target="_blank"
+            >
+              Source
+            </a>
+            . Made with ❤️ by Waterloo Rocketry.
+          </p>
         </div>
       </div>
       <div className="flex-grow p-8">
@@ -285,7 +306,6 @@ export default function Home() {
               bottom: `${(currentState.y_m / 8000) * 100}%`,
               left: `calc(6rem + ${(currentState.x_m / 8000) * 100}cqh)`,
               transform: `rotate(${currentState.vx_m_s === 0 && currentState.vy_m_s === 0 ? (5 / 180) * Math.PI : Math.atan2(currentState.vx_m_s, currentState.vy_m_s)}rad)`,
-              //   transformOrigin: "center",
             }}
           >
             <svg
