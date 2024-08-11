@@ -61,6 +61,11 @@ export default function Home() {
 
   const predicted = predictTrajectory(currentState, extTraj / 100);
 
+  const [portInfo, setPortInfo] = useState<{
+    usbProductId: number;
+    usbVendorId: number;
+  } | null>(null);
+
   return (
     <main className="flex h-screen w-full">
       <div className="overflow-y-scroll border-r shadow">
@@ -188,6 +193,71 @@ export default function Home() {
               className="flex-grow"
             />
           </div>
+
+          <hr />
+
+          <button
+            className="px-4 py-2 rounded bg-green-300 disabled:bg-green-500"
+            disabled={portInfo !== null}
+            onClick={async () => {
+              if (!("serial" in navigator)) {
+                return;
+              }
+              const serial: any = navigator.serial;
+              let port;
+              try {
+                port = await serial.requestPort();
+              } catch (e) {
+                alert("Please request a port for the airbrakes to connect to.");
+                return;
+              }
+              try {
+                await port.open({ baudRate: 9600 });
+              } catch (e) {
+                // Assume it is already opened.
+              }
+              setPortInfo(port.getInfo());
+              const reader = port.readable.getReader();
+              let data = "";
+              try {
+                while (true) {
+                  const { value, done }: { value: Uint8Array; done: boolean } =
+                    await reader.read();
+                  if (done) {
+                    break;
+                  }
+                  let newExtString: string | null = null;
+                  value.forEach((byte) => {
+                    const char = String.fromCharCode(byte);
+                    if (char === "\n") {
+                      newExtString = data;
+                      data = "";
+                    } else {
+                      data += char;
+                    }
+                  });
+                  if (newExtString !== null) {
+                    console.log(`Reading new extension ${newExtString}`);
+                    try {
+                      const newExt = parseInt(newExtString);
+                      if (0 <= newExt && newExt <= 100) {
+                        setExt(newExt);
+                        extRef.current = newExt;
+                      }
+                    } catch (e) {
+                      // Probably incomplete data.
+                    }
+                  }
+                }
+              } finally {
+                reader.releaseLock();
+              }
+            }}
+          >
+            {portInfo === null
+              ? "Connect to serial port"
+              : `Connected to port: 0x${portInfo.usbVendorId.toString(16)} / 0x${portInfo.usbProductId.toString(16)}`}
+          </button>
 
           <hr />
 
