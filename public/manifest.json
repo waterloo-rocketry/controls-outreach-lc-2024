@@ -7,11 +7,11 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/logo_512x512.png",
+      "src": "logo_512x512.png",
       "sizes": "512x512"
     },
     {
-      "src": "/logo_192x192.png",
+      "src": "logo_192x192.png",
       "sizes": "192x192"
     }
   ]
