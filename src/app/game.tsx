@@ -327,7 +327,7 @@ export function Game() {
             <hr className="flex-grow border-gray-400" />
           </div>
           {/* can deploy at 9 s which is 2665 m, coincidentally close to 1/3 of 8000 */}
-          <div className="absolute bottom-1/3 flex items-center w-full gap-4 translate-y-[50%]">
+          <div className="absolute bottom-[29.7%] flex items-center w-full gap-4 translate-y-[50%]">
             <p className="w-16 text-yellow-600">Deploy</p>
             <hr className="flex-grow border-yellow-600" />
           </div>
